@@ -1,9 +1,40 @@
-<h1>{{ title }}</h1>
+<!-- Sidebar -->
+<div class="w3-sidebar w3-bar-block w3-card" style="width:25%;right:0;">
+  <h3 class="w3-bar-item">Menu</h3>
+  <a href="#" class="w3-bar-item w3-button" (click)="DisplayBank()">Bank</a>
+  <a href="#" class="w3-bar-item w3-button">Link 2</a>
+  <a href="#" class="w3-bar-item w3-button">Link 3</a>
+</div>
 
-<!-- this creates a google map on the page with the given lat/lng from -->
-<!-- the component as the initial center of the map: -->
-<agm-map id = "map" [latitude]="lat" [longitude]="lng">
-  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-</agm-map>
-<div id ='ggmap'></div>
-<button id = "btn" (click)="myClickFunc()">
+<!-- Page Content -->
+<div style="margin-right:25%">
+
+  <div class="w3-container w3-teal">
+    <h1>I-link: Google api in angular4</h1>
+  </div>
+
+  <agm-map 
+  (boundsChange)="boundsChange($event)"
+  [latitude]="lat" 
+  [longitude]="lng" 
+  [zoom] = "zoom" >
+    <agm-marker 
+    *ngFor="let m of markers; let i = index"
+    (markerClick)="clickedMarker(m.label, i)"
+    [latitude]="m.lat"
+    [longitude]="m.lng"
+    [label]="m.label"
+    [markerDraggable]="m.draggable"
+    (dragEnd)="markerDragEnd(m, $event)">
+  </agm-marker>
+  </agm-map>
+  
+  <div class="w3-container">
+    <h2>Right Sidebar</h2>
+    <p>In this example, we have added <strong>right:0</strong> to the w3-sidebar.</p>
+
+</div>
+
+<div id ="ggmap"></div>
+
+<button id = "btn" >
