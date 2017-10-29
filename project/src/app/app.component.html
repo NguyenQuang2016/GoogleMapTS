@@ -12,21 +12,24 @@
   <div class="w3-container w3-teal">
     <h1>I-link: Google api in angular4</h1>
   </div>
-
+  
+  <div id ="ggmap"></div>
   <agm-map 
-  (boundsChange)="boundsChange($event)"
+  (boundsChange)="amgBoundsChange($event)"
+  (centerChange)="amgCenterChange($event)"
   [latitude]="lat" 
   [longitude]="lng" 
   [zoom] = "zoom" >
     <agm-marker 
-    *ngFor="let m of markers; let i = index"
-    (markerClick)="clickedMarker(m.label, i)"
-    [latitude]="m.lat"
-    [longitude]="m.lng"
-    [label]="m.label"
-    [markerDraggable]="m.draggable"
-    (dragEnd)="markerDragEnd(m, $event)">
-  </agm-marker>
+      *ngFor="let m of markers; let i = index"
+      (markerClick)="clickedMarker(m.label, i)"
+      [latitude]="m.lat"
+      [longitude]="m.lng"
+      [label]="m.label"
+      [iconUrl] = "m.icon"
+      [markerDraggable]="m.draggable"
+      (dragEnd)="markerDragEnd(m, $event)">
+    </agm-marker>
   </agm-map>
   
   <div class="w3-container">
@@ -35,6 +38,5 @@
 
 </div>
 
-<div id ="ggmap"></div>
 
-<button id = "btn" >
+<button id = "btn"  (click)="testClick()">
